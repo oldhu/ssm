@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSM</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= yield(:header) %>
+</head>
+<body>
+<%= render 'layouts/nav' %>
+
+<div class="container">
+  <div id="progress-pane" class="alert alert-info" style="display: none;">
+    <div id="progress-pane-title">job title</div>
+    <div class="progress progress-striped active">
+      <div id="progress-pane-bar" class="bar" style="width: 80%;"></div>
+    </div>
+    <div id="progress-pane-message">message</div>
+  </div>
+<%= yield %>
+</div>
+
+</body>
+</html>

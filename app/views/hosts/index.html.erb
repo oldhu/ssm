@@ -1,0 +1,36 @@
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <%= link_to 'Reload', hosts_reload_path, :class => 'btn' %>
+    <a href="#" id="hosts_fetch_hba_link" class="btn">Fetch HBA</a>
+  </div>
+</div>
+<table class="table table-bordered" id="host-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Host</th>
+      <th>Login</th>
+      <th>Password</th>
+      <th>FC Ports</th>
+    </tr>
+  </thead>
+  <% @hosts.each do |host| %>
+  <tr>
+    <td><%= link_to host.name, fabric_host_path(host.id) %></td>
+    <td><%= host.type %></td>
+    <td><%= host.host %></td>
+    <td><%= host.user %></td>
+    <td><%= host.pass %></td>
+    <td id="table_cell_ports_<%= host.id %>">
+      <% host.ports.each do |port| %>  <code> <%= port.wwn %> </code> <code> <%= port.dev %> </code> <br/> <% end %> 
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<% content_for :header do %>
+<%= javascript_include_tag hosts_fetch_hba_path %>
+<% end %>
+
+

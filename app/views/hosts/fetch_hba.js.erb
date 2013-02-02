@@ -1,0 +1,39 @@
+$(document).ready(function() {
+    function set_ports_cell_text(host, str) {
+        $("#table_cell_ports_" + host.id).html(str);
+    }
+    function fill_cell(host, ports) {
+        var inner = ""
+        for (i in ports) {
+            inner += "<code>" + ports[i].wwn + "</code><code>" + ports[i].dev + "</code><br/>"
+        }
+        set_ports_cell_text(host, inner);
+    }
+    function fetch_hba(hosts, progress, step) {
+        if (hosts.length == 0) {
+            close_message_pane();
+            return;            
+        }
+        progress += step
+        set_progress(progress + "%");
+        host = hosts.shift();
+        set_message("fetching " + host.name);
+        set_ports_cell_text(host, "fetching...");
+        $.get("<%= hosts_fetch_hba_path %>/" + host.id + ".json", function(ret) {
+            fill_cell(host, ret.data);
+            fetch_hba(hosts, progress, step);
+        });
+    }
+
+    $('#hosts_fetch_hba_link').click(function () {
+        $.get("<%= hosts_fetch_hba_path %>.json", function(ret) {
+            var hosts = ret.data;
+            if (hosts.length == 0) {
+                return;
+            }
+            open_message_pane('Fetch HBA');
+            var step = 100 / hosts.length;
+            fetch_hba(hosts, 0, step);
+        });
+    });
+});
