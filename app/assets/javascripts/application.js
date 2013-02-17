@@ -30,7 +30,7 @@ function open_message_pane(job_title) {
 }
 
 function close_message_pane() {
-  setTimeout(function() {
-    $('#progress-pane').slideUp('slow');                
+  setTimeout(function () {
+    $('#progress-pane').slideUp('slow');
   }, 1000);
 }
