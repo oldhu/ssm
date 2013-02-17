@@ -12,6 +12,7 @@ $(document).ready(function() {
     function fetch_hba(hosts, progress, step) {
         if (hosts.length == 0) {
             close_message_pane();
+            window.location.reload(true);
             return;            
         }
         progress += step
@@ -20,12 +21,16 @@ $(document).ready(function() {
         set_message("fetching " + host.name);
         set_ports_cell_text(host, "fetching...");
         $.get("<%= hosts_fetch_hba_path %>/" + host.id + ".json", function(ret) {
-            fill_cell(host, ret.data);
+            fill_cell(host, "fetching...done");
             fetch_hba(hosts, progress, step);
         });
     }
 
     $('#hosts_fetch_hba_link').click(function () {
+        var r = confirm("The system will reload HBA information from all hosts, it may take a long time, continue ?");
+        if (r == false) {
+            return;
+        }
         $.get("<%= hosts_fetch_hba_path %>.json", function(ret) {
             var hosts = ret.data;
             if (hosts.length == 0) {

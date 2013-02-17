@@ -59,7 +59,8 @@ class Host < ActiveRecord::Base
     'aix' => Host::AixHost,
     'hp-ux' => Host::HpuxHost,
     'symmetrix' => Host::SymmetrixHost,
-    'brocade' => Host::BrocadeHost
+    'brocade' => Host::BrocadeHost,
+    'vplex' => Host::VplexHost
   }
 
   class << self

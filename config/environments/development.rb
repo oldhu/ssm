@@ -33,5 +33,7 @@ Ssm::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
+
+  config.serve_static_assets = true
 end

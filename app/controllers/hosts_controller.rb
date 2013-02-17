@@ -8,7 +8,15 @@ class HostsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js
       format.json { render json: @hosts }
+    end
+  end
+
+  def show
+    @host = Host.find(params[:id])
+    respond_to do |format|
+      format.html # index.html.erb
     end
   end
 
@@ -41,7 +49,9 @@ class HostsController < ApplicationController
     { :data => ports }
   end
 
-  # GET /hosts/fetch_hba
+  # GET /hosts/fetch_hba.json
+  # GET /hosts/fetch_hba.js
+  # GET /hosts/fetch_hba/:id.json
   def fetch_hba
     id = params[:id]
     if id

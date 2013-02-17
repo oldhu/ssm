@@ -1,5 +1,16 @@
-<p id="notice"><%= notice %></p>
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <%= link_to 'Back', hosts_path, :class => 'btn' %>
+  </div>
+</div>
 
-
-<%= link_to 'Edit', edit_host_path(@host) %> |
-<%= link_to 'Back', hosts_path %>
+<dl class="dl-horizontal">
+  <dt>Name</dt>
+  <dd><%= link_to @host.name, fabric_host_path(@host.id) %></dd>
+  <dt>Host</dt>
+  <dd><%= @host.host %> </dd>
+  <dt>WWN</dt>
+  <dd>
+    <% @host.ports.each do |port| %>  <code> <%= port.wwn %> </code> <code> <%= port.dev %> </code> <br/> <% end %> 
+  </dd>
+</dl>
